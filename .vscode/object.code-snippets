@@ -1,0 +1,12 @@
+{
+	"PSCustomObject": {
+		"scope": "powershell",
+		"prefix": "[PSCustomObject]",
+		"body": [
+			"[PSCustomObject]@{",
+			"\t",
+			"}"
+		],
+		"description": "Fixes that friggin' PSCustomObject snippet the PS Team inflicted on us"
+	}
+}

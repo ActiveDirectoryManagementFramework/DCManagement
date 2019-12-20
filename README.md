@@ -1,2 +1,7 @@
-# DCManagement
-PowerShell module to manage domain controllers &amp; initial domain deployments
+﻿# DCManagement
+
+## Synopsis
+
+Module to manage Domain Controller deployments and configuration
+
+> More description to come

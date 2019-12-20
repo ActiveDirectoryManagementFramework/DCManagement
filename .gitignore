@@ -1,0 +1,21 @@
+﻿
+# ignore the settings folder and files for VSCode and PSS
+*.psproj
+*TempPoint*
+
+# Ignore staging info from Visual Studio
+library/DCManagement/.vs/*
+library/DCManagement/DCManagement/bin/*
+library/DCManagement/DCManagement/obj/*
+
+# ignore PowerShell Studio MetaData
+DCManagement/DCManagement.psproj
+DCManagement/DCManagement.psproj.bak
+DCManagement/DCManagement.psprojs
+DCManagement/DCManagement.psproj
+
+# ignore the TestResults
+TestResults/*
+
+# ignore the publishing Directory
+publish/*

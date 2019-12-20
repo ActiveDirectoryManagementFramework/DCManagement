@@ -1,0 +1,11 @@
+﻿TOPIC
+	about_DCManagement
+	
+SHORT DESCRIPTION
+	Explains how to use the DCManagement powershell module
+	
+LONG DESCRIPTION
+	<Insert Content here>
+
+KEYWORDS
+	DCManagement

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{C9C8362C-5A58-43BF-AD29-72E4E7525FC6}") = "DCManagement", "DCManagement\DCManagement.csproj", "{65C9ADE8-83EC-40FA-BCB8-5BE31356DD4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65C9ADE8-83EC-40FA-BCB8-5BE31356DD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65C9ADE8-83EC-40FA-BCB8-5BE31356DD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65C9ADE8-83EC-40FA-BCB8-5BE31356DD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65C9ADE8-83EC-40FA-BCB8-5BE31356DD4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4AAB23BA-B23D-40CB-8E3F-E6E1F6A1E60A}
+	EndGlobalSection
+EndGlobal
