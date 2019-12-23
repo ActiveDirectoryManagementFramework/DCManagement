@@ -40,18 +40,9 @@
 	
 	# Functions to export from this module
 	FunctionsToExport = @(
-		'Get-DCRegistrySetting'
-		'Get-DCShare'
 		'Install-DCChildDomain'
+		'Install-DCDomainController'
 		'Install-DCRootDomain'
-		'Invoke-DCRegistrySetting'
-		'Invoke-DCShare'
-		'Register-DCRegistrySetting'
-		'Register-DCShare'
-		'Test-DCRegistrySetting'
-		'Test-DCShare'
-		'Unregister-DCRegistrySetting'
-		'Unregister-DCShare'
 	)
 	
 	# Cmdlets to export from this module

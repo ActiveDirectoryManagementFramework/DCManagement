@@ -19,7 +19,8 @@
 
 			Generates a new 32v character password.
 	#>
-	
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingConvertToSecureStringWithPlainText", "")]
 	[CmdletBinding()]
 	Param (
 		[int]
