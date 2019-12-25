@@ -58,14 +58,20 @@
 		This parameters disables user-friendly warnings and enables the throwing of exceptions.
 		This is less user friendly, but allows catching exceptions in calling scripts.
 	
+	.PARAMETER Confirm
+		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
+	
+	.PARAMETER WhatIf
+		If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
+	
 	.EXAMPLE
 		PS C:\> Install-DCChildDomain -ComputerName 10.1.2.3 -Credential $cred -DomainName corp -ParentDomainName contoso.com
 
 		Will install the childdomain corp.contoso.com under the domain contoso.com on the server 10.1.2.3.
-	
-	.NOTES
-	General notes
 	#>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "")]
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
 	[CmdletBinding(SupportsShouldProcess = $true)]
 	Param (
 		[PSFComputer]

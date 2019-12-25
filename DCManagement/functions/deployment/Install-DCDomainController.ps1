@@ -48,11 +48,20 @@
 		This parameters disables user-friendly warnings and enables the throwing of exceptions.
 		This is less user friendly, but allows catching exceptions in calling scripts.
 	
+	.PARAMETER Confirm
+		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
+	
+	.PARAMETER WhatIf
+		If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
+	
 	.EXAMPLE
 		PS C:\> Install-DCDomainController -Computer dc2.contoso.com -Credential $localCred -DomainName 'contoso.com' -DomainCredential $domCred
 
 		Joins the server dc2.contoso.com into the contoso.com domain, as a promoted domain controller using the specified credentials.
 	#>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "")]
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
 	[CmdletBinding(SupportsShouldProcess = $true)]
 	Param (
 		[PSFComputer]
@@ -181,8 +190,8 @@
 			DatabasePath = $DatabasePath
 			NoRebootOnCompletion = $NoReboot
 		}
-
-		Invoke-PSFProtectedCommand -ActionString 'Install-DCDomainController.Installing' -Target $DnsName -ScriptBlock {
+		
+		Invoke-PSFProtectedCommand -ActionString 'Install-DCDomainController.Installing' -ActionStringValues $DomainName -Target $DnsName -ScriptBlock {
 			$result = Invoke-PSFCommand -ComputerName $ComputerName -Credential $Credential -ScriptBlock $scriptBlock -ErrorAction Stop -ArgumentList $configuration
 			$result.SafeModeAdminPassword = $SafeModeAdministratorPassword
 			$result = $result | Select-PSFObject -KeepInputObject -ScriptProperty @{
