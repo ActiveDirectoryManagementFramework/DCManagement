@@ -4,6 +4,6 @@
 
 - Metadata Update, no functional changes
 
-## 1.0.4 (2019-11-14)
+## 1.0.4 (2019-12-21)
 
 - Initial Release
