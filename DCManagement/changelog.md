@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 1.1.7
+## 1.1.7 (2020-06-21)
 
 - New Component: Shares
 - New Command: Clear-DCConfiguration
