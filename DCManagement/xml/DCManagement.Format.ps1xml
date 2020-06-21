@@ -1,31 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-16"?>
 <Configuration>
+	<SelectionSets>
+        <SelectionSet>
+            <Name>DCManagement.TestResults</Name>
+            <Types>
+                <TypeName>DCManagement.Share.TestResult</TypeName>
+            </Types>
+        </SelectionSet>
+    </SelectionSets>
+	
 	<ViewDefinitions>
-		<!-- Foo.Bar -->
-		<View>
-			<Name>Foo.Bar</Name>
-			<ViewSelectedBy>
-				<TypeName>Foo.Bar</TypeName>
-			</ViewSelectedBy>
-			<TableControl>
-				<AutoSize/>
-				<TableHeaders>
-					<TableColumnHeader/>
-					<TableColumnHeader/>
-				</TableHeaders>
-				<TableRowEntries>
-					<TableRowEntry>
-						<TableColumnItems>
-							<TableColumnItem>
-								<PropertyName>Foo</PropertyName>
-							</TableColumnItem>
-							<TableColumnItem>
-								<PropertyName>Bar</PropertyName>
-							</TableColumnItem>
-						</TableColumnItems>
-					</TableRowEntry>
-				</TableRowEntries>
-			</TableControl>
-		</View>
+		<!-- DomainManagement.*.TestResult -->
+        <View>
+            <Name>DCManagement.TestResult</Name>
+            <ViewSelectedBy>
+                <SelectionSetName>DCManagement.TestResults</SelectionSetName>
+            </ViewSelectedBy>
+            <TableControl>
+                <AutoSize/>
+                <TableHeaders>
+                    <TableColumnHeader/>
+                    <TableColumnHeader/>
+                    <TableColumnHeader/>
+                    <TableColumnHeader/>
+                    <TableColumnHeader/>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <PropertyName>Server</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>Type</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>ObjectType</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>Identity</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>Changed</PropertyName>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
 	</ViewDefinitions>
 </Configuration>

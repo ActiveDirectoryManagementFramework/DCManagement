@@ -26,7 +26,9 @@
 	# Modules that must be imported into the global environment prior to importing
 	# this module
 	RequiredModules = @(
-		@{ ModuleName='PSFramework'; ModuleVersion='1.1.59' }
+		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.1.59' }
+		@{ ModuleName = 'ResolveString'; ModuleVersion = '1.0.0' }
+		@{ ModuleName = 'Principal'; ModuleVersion = '1.0.0' }
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
@@ -36,13 +38,20 @@
 	# TypesToProcess = @('xml\DCManagement.Types.ps1xml')
 	
 	# Format files (.ps1xml) to be loaded when importing this module
-	# FormatsToProcess = @('xml\DCManagement.Format.ps1xml')
+	FormatsToProcess = @('xml\DCManagement.Format.ps1xml')
 	
 	# Functions to export from this module
 	FunctionsToExport = @(
+		'Clear-DCConfiguration'
+		'Get-DCShare'
 		'Install-DCChildDomain'
 		'Install-DCDomainController'
 		'Install-DCRootDomain'
+		'Invoke-DCShare'
+		'Register-DCShare'
+		'Set-DCDomainContext'
+		'Test-DCShare'
+		'Unregister-DCShare'
 	)
 	
 	# Cmdlets to export from this module
