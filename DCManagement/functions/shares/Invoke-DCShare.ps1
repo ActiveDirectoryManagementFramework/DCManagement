@@ -57,7 +57,6 @@
 		Assert-Configuration -Type Shares -Cmdlet $PSCmdlet
 		Set-DCDomainContext @parameters
 		
-		$domainControllers = Get-DomainController @parameters
 		$cimCred = $PSBoundParameters | ConvertTo-PSFHashtable -Include Credential
 		
 		$cimSessions = @{ }

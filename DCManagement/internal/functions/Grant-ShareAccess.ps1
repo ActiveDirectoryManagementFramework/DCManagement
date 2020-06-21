@@ -29,6 +29,7 @@
 	
 		Grants the specified user full access right to the share "Legal"
 #>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWMICmdlet", "")]
 	[CmdletBinding()]
 	param (
 		[PSFComputer]

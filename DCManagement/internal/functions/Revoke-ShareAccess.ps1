@@ -29,6 +29,7 @@
 	
 		Revokes the specified user's full access right to the share "Legal"
 #>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWMICmdlet", "")]
 	[CmdletBinding()]
 	Param (
 		[PSFComputer]

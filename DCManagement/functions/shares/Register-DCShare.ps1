@@ -99,7 +99,7 @@
 	
 	process {
 		$script:shares[$Name] = [PSCustomObject]@{
-			PSTypeName  = 'DCManagement.Share'	
+			PSTypeName  = 'DCManagement.Share'
 			Name        = $Name
 			Path	    = $Path
 			Description = $Description

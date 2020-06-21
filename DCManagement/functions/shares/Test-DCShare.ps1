@@ -191,6 +191,7 @@
 		
 		function New-AccessChange
 		{
+			[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
 			[CmdletBinding()]
 			param (
 				[ValidateSet('Full','Change','Read')]
