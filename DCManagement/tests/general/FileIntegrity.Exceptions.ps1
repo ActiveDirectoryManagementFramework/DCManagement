@@ -31,4 +31,5 @@ $global:MayContainCommand = @{
 	"Write-Output" = @()
 	"Write-Information" = @()
 	"Write-Debug" = @()
+	'Get-WmiObject' = @('Grant-ShareAccess.ps1', 'Revoke-ShareAccess.ps1')
 }
