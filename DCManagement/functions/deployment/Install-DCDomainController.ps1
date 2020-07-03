@@ -142,6 +142,8 @@
 				New-Result -Status Error -Message "Computer $env:COMPUTERNAME is part of AD domain: $($computerSystem.Domain)"
 				return
 			}
+			
+			$null = Install-WindowsFeature -FeatureName AD-Domain-Services -IncludeManagementTools
 
 			$parameters = @{
 				DomainName = $Configuration.DomainName
