@@ -3,7 +3,7 @@
 	RootModule = 'DCManagement.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.1.7'
+	ModuleVersion = '1.1.8'
 	
 	# ID used to uniquely identify this module
 	GUID = '998b2262-9b38-4b54-8ce6-493a00d70b03'
