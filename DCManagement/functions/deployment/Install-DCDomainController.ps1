@@ -34,7 +34,7 @@
 	.PARAMETER LogPath
 		The path where the DC will store the logs.
 	
-	.PARAMETER Sysvolpath
+	.PARAMETER SysvolPath
 		The path where the DC will store sysvol.
 	
 	.PARAMETER DatabasePath
@@ -92,7 +92,7 @@
 		$LogPath = (Get-PSFConfigValue -FullName 'DCManagement.Defaults.LogPath'),
 
 		[string]
-		$Sysvolpath = (Get-PSFConfigValue -FullName 'DCManagement.Defaults.SysvolPath'),
+		$SysvolPath = (Get-PSFConfigValue -FullName 'DCManagement.Defaults.SysvolPath'),
 
 		[string]
 		$DatabasePath = (Get-PSFConfigValue -FullName 'DCManagement.Defaults.DatabasePath'),
@@ -150,7 +150,7 @@
 				Credential = $Configuration.DomainCredential
 				DatabasePath = $Configuration.DatabasePath
 				LogPath = $Configuration.LogPath
-				SysvolPath = $Configuration.Sysvol
+				SysvolPath = $Configuration.SysvolPath
 				InstallDNS = $Configuration.InstallDNS
 				SafeModeAdministratorPassword = $Configuration.SafeModeAdministratorPassword
 				NoRebootOnCompletion = $Configuration.NoRebootOnCompletion
