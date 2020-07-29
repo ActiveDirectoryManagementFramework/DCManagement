@@ -2,6 +2,9 @@
 
 ## ???
 
+- Upd: Install-DCChildDomain - shows context prompt when no configuration loaded yet
+- Upd: Install-DCDomainController - shows context prompt when no configuration loaded yet
+- Upd: Install-DCRootDomain - shows context prompt when no configuration loaded yet
 - Fix: Install-DCChildDomain - does not respect Sysvol configuration / parameter
 - Fix: Install-DCDomainController - does not respect Sysvol configuration / parameter
 - Fix: Install-DCRootDomain - does not respect Sysvol configuration / parameter
