@@ -2,6 +2,7 @@
 
 ## ???
 
+- New: Component - File System Access Rules
 - Upd: Install-DCChildDomain - shows context prompt when no configuration loaded yet
 - Upd: Install-DCDomainController - shows context prompt when no configuration loaded yet
 - Upd: Install-DCRootDomain - shows context prompt when no configuration loaded yet

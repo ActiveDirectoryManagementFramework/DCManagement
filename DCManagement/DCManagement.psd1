@@ -43,14 +43,19 @@
 	# Functions to export from this module
 	FunctionsToExport = @(
 		'Clear-DCConfiguration'
+		'Get-DCAccessRule'
 		'Get-DCShare'
 		'Install-DCChildDomain'
 		'Install-DCDomainController'
 		'Install-DCRootDomain'
+		'Invoke-DCAccessRule'
 		'Invoke-DCShare'
+		'Register-DCAccessRule'
 		'Register-DCShare'
 		'Set-DCDomainContext'
+		'Test-DCAccessRule'
 		'Test-DCShare'
+		'Unregister-DCAccessRule'
 		'Unregister-DCShare'
 	)
 	
