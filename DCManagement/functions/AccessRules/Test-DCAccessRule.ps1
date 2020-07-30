@@ -60,41 +60,49 @@
 				$Parameters
 			)
 			
-			$resolvedPath = Resolve-String -Text $InputObject.Path -ArgumentList $Parameters
-			
-			if ($InputObject.Empty)
+			process
 			{
-				[PSCustomObject]@{
-					Path	   = $resolvedPath
-					Identity   = $null
-					Principal  = $null
-					AccessRule = $null
-					Configuration = $InputObject
-					IdentityError = $false
-					ServerRole = $InputObject.ServerRole
-					AccessMode    = 'Constrained'
-					Empty = $true
+				$resolvedPath = Resolve-String -Text $InputObject.Path -ArgumentList $Parameters
+				
+				if ($InputObject.Empty)
+				{
+					[PSCustomObject]@{
+						Path		  = $resolvedPath
+						Identity	  = $null
+						Principal	  = $null
+						AccessRule    = $null
+						Configuration = $InputObject
+						IdentityError = $false
+						ServerRole    = $InputObject.ServerRole
+						AccessMode    = 'Constrained'
+						Empty		  = $true
+					}
+					return
 				}
-			}
-			
-			$resolvedIdentity = Resolve-String -Text $InputObject.Identity -ArgumentList $Parameters
-			$identityError = $false
-			try { $resolvedPrincipal = Resolve-Principal @Parameters -Name $resolvedIdentity -OutputType SID }
-			catch { $identityError = $true }
-			
-			$rule = [System.Security.AccessControl.FileSystemAccessRule]::new($resolvedPrincipal, $InputObject.Rights, $InputObject.Inheritance, $InputObject.Propagation, $InputObject.Type)
-			Add-Member -InputObject $rule -MemberType NoteProperty -Name DisplayName -Value $resolvedIdentity
-			
-			[PSCustomObject]@{
-				Path	   = $resolvedPath
-				Identity   = $resolvedIdentity
-				Principal  = $resolvedPrincipal
-				AccessRule = $rule
-				Configuration = $InputObject
-				IdentityError = $identityError
-				ServerRole = $InputObject.ServerRole
-				AccessMode = $InputObject.AccessMode
-				Empty	   = $false
+				
+				$resolvedIdentity = Resolve-String -Text $InputObject.Identity -ArgumentList $Parameters
+				$identityError = $false
+				try { $resolvedPrincipal = Resolve-Principal @Parameters -Name $resolvedIdentity -OutputType SID -ErrorAction Stop }
+				catch
+				{
+					$identityError = $true
+					$resolvedPrincipal = [System.Security.Principal.NTAccount]$resolvedIdentity
+				}
+				
+				$rule = [System.Security.AccessControl.FileSystemAccessRule]::new($resolvedPrincipal, $InputObject.Rights, $InputObject.Inheritance, $InputObject.Propagation, $InputObject.Type)
+				Add-Member -InputObject $rule -MemberType NoteProperty -Name DisplayName -Value $resolvedIdentity
+				
+				[PSCustomObject]@{
+					Path		  = $resolvedPath
+					Identity	  = $resolvedIdentity
+					Principal	  = $resolvedPrincipal
+					AccessRule    = $rule
+					Configuration = $InputObject
+					IdentityError = $identityError
+					ServerRole    = $InputObject.ServerRole
+					AccessMode    = $InputObject.AccessMode
+					Empty		  = $false
+				}
 			}
 		}
 		
@@ -202,17 +210,24 @@
 				if ($path.Group | Where-Object AccessMode -EQ 'Defined') { $effectiveMode = 'Defined' }
 				if ($path.Group | Where-Object AccessMode -EQ 'Constrained') { $effectiveMode = 'Constrained' }
 				
-				# Interrupt if Constrained and resolution error
-				if ($effectiveMode -eq 'Constrained' -and ($path.Group | Where-Object IdentityError))
+				if ($path.Group | Where-Object IdentityError)
 				{
-					$errorCfg = $path.Group | Where-Object IdentityError
-					Stop-PSFFunction -String 'Test-DCAccessRule.Identity.Error' -StringValues $domainController.Name, $path.Name, ($errorCfg.Identity -join ",") -EnableException $EnableException -Cmdlet $PSCmdlet -Continue -Target $domainController.Name
+					# Interrupt if Constrained and resolution error
+					if ($effectiveMode -eq 'Constrained')
+					{
+						$errorCfg = $path.Group | Where-Object IdentityError
+						Stop-PSFFunction -String 'Test-DCAccessRule.Identity.Error' -StringValues $domainController.Name, $path.Name, ($errorCfg.Identity -join ",") -EnableException $EnableException -Cmdlet $PSCmdlet -Continue -Target $domainController.Name
+					}
+					else
+					{
+						Write-PSFMessage -Level Warning -String 'Test-DCAccessRule.Identity.Error' -StringValues $domainController.Name, $path.Name, ($errorCfg.Identity -join ",")
+					}
 				}
 				
 				#region Resolve effective desired state
 				# The same identity might have different permissions on different server roles defined
 				# In case of conflict: Pick the most specific definition
-				$groupedIdentity = $path.Group | Group-Object Identity
+				$groupedIdentity = $path.Group | Where-Object IdentityError -NE $true | Group-Object Identity
 				$effectiveDesiredState = foreach ($groupSet in $groupedIdentity)
 				{
 					if ($groupSet.Count -eq 1) { $groupSet.Group; continue }
