@@ -9,6 +9,7 @@
 - Fix: Install-DCChildDomain - does not respect Sysvol configuration / parameter
 - Fix: Install-DCDomainController - does not respect Sysvol configuration / parameter
 - Fix: Install-DCRootDomain - does not respect Sysvol configuration / parameter
+- Fix: Install-DCDomainController - stops failing to install at all
 
 ## 1.1.8 (2020-07-03)
 

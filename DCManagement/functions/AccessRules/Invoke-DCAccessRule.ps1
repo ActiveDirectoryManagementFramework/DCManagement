@@ -140,7 +140,7 @@
 						if ($rule.InheritanceFlags -ne $referenceRule.InheritanceFlags) { continue }
 						if ($rule.PropagationFlags -ne $referenceRule.PropagationFlags) { continue }
 						if ($rule.AccessControlType -ne $referenceRule.AccessControlType) { continue }
-						$acl.RemoveAccessRule($rule)
+						$null = $acl.RemoveAccessRule($rule)
 					}
 					$acl | Set-Acl -Path $using:Path -ErrorAction Stop -Confirm:$false
 					
@@ -172,7 +172,7 @@
 	{
 		if (-not $InputObject) { $InputObject = Test-DCAccessRule @parameters }
 		
-		foreach ($testItem in $InputObject)
+		foreach ($testItem in ($InputObject | Sort-Object Type -Descending)) # Delete before Add
 		{
 			# Catch invalid input - can only process test results
 			if ($testItem.PSObject.TypeNames -notcontains 'DCManagement.FSAccessRule.TestResult')

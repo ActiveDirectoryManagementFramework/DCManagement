@@ -153,7 +153,7 @@
 				return
 			}
 			
-			$null = Install-WindowsFeature -FeatureName AD-Domain-Services -IncludeManagementTools
+			$null = Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 
 			$parameters = @{
 				DomainName = $Configuration.DomainName
@@ -167,7 +167,7 @@
 			}
 			
 			# Test Installation
-			$testResult = Test-ADDSDomainController @parameters -WarningAction SilentlyContinue
+			$testResult = Test-ADDSDomainControllerInstallation @parameters -WarningAction SilentlyContinue
 			if ($testResult.Status -eq "Error") {
 				New-Result -Status Error -Message "Failed validating Domain Controller Installation: $($testResult.Message)" -Data $testResult
 				return
