@@ -104,7 +104,7 @@
 	{
 		if (-not $script:fileSystemAccessRules[$Path]) { $script:fileSystemAccessRules[$Path] = @{ } }
 		
-		$script:fileSystemAccessRules[$Path]["$($Identity)þ$($ServerRole)"] = [pscustomobject]@{
+		$script:fileSystemAccessRules[$Path]["$($Identity)þ$($ServerRole)þ$($Rights)þ$($Type)þ$($Inheritance)þ$($Propagation)"] = [pscustomobject]@{
 			PSTypeName  = 'DCManagement.AccessRule'
 			Path	    = $Path
 			Identity    = $Identity
