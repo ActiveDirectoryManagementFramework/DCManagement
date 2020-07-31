@@ -274,27 +274,7 @@
 					}
 				}
 				
-				#region Resolve effective desired state
-				<#
-				This approach was canned, because the same identity can and possibly will have multiple entries on the some object.
-				For example, different permissions, one explicitly for the object and another for childitems of the object
-				
-				# The same identity might have different permissions on different server roles defined
-				# In case of conflict: Pick the most specific definition
-				$groupedIdentity = $path.Group | Where-Object IdentityError -NE $true | Group-Object Identity
-				$effectiveDesiredState = foreach ($groupSet in $groupedIdentity)
-				{
-					if ($groupSet.Count -eq 1) { $groupSet.Group; continue }
-					
-					$groupSet.Group | Sort-Object {
-						if ($_.ServerRole -eq 'ALL') { 1 }
-						if ($_.ServerRole -eq 'FSMO') { 2 }
-						if ($_.ServerRole -eq 'PDC') { 3 }
-					} -Descending | Select-Object -First 1
-				}
-				#>
 				$effectiveDesiredState = $path.Group | Where-Object IdentityError -NE $true
-				#endregion Resolve effective desired state
 				
 				#region Compare desired state with existing state
 				foreach ($desiredRule in $effectiveDesiredState)
