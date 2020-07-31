@@ -108,6 +108,7 @@
 		
 		function Get-RemoteAccessRule
 		{
+			[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSReviewUnusedParameter", "")]
 			[CmdletBinding()]
 			param (
 				$Session,
@@ -144,6 +145,7 @@
 		
 		function New-Change
 		{
+			[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
 			[CmdletBinding()]
 			param (
 				$RuleObject
@@ -180,6 +182,8 @@
 		
 		function Convert-AccessRight
 		{
+			[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseUsingScopeModifierInNewRunspaces", "")]
+			[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseOutputTypeCorrectly", "")]
 			[CmdletBinding()]
 			param (
 				[int]
@@ -199,7 +203,7 @@
 				Write = ([DCManagement.FileSystemPermission]'AppendData, WriteAttributes, WriteData, WriteExtendedAttributes, ReadPermissions, Synchronize')
 			}
 			
-			if ($definitiveRight -band [DCManagement.FileSystemPermission]::GenericAll) { return [DCManagement.FileSystemPermission]::FullControl }
+			if ($definitiveRight -band [DCManagement.FileSystemPermission]::GenericAll) { return [System.Security.AccessControl.FileSystemRights]::FullControl }
 			if ($definitiveRight -band [DCManagement.FileSystemPermission]::GenericExecute)
 			{
 				$definitiveRight = $definitiveRight -bxor [DCManagement.FileSystemPermission]::GenericExecute -bor $genericRightsMap.Execute

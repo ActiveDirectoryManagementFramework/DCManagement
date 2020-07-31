@@ -35,6 +35,9 @@
 	
 		Brings all DCs of the corp.contoso.com domain into their desired state as far as filesystem Access Rules are concerned.
 #>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSReviewUnusedParameter", "")]
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseUsingScopeModifierInNewRunspaces", "")]
 	[CmdletBinding(SupportsShouldProcess = $true)]
 	param (
 		[Parameter(ValueFromPipeline = $true)]
@@ -59,7 +62,6 @@
 		Assert-Configuration -Type fileSystemAccessRules -Cmdlet $PSCmdlet
 		Set-DCDomainContext @parameters
 		
-		$domainControllers = Get-DomainController @parameters
 		$psCred = $PSBoundParameters | ConvertTo-PSFHashtable -Include Credential
 		
 		$psSessions = @{ }

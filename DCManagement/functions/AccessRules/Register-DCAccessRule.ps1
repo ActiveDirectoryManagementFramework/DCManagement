@@ -115,6 +115,7 @@
 			AccessMode  = $AccessMode
 			ServerRole  = $ServerRole
 			Empty	    = $Empty
+			ContextName = $ContextName
 		}
 	}
 }
