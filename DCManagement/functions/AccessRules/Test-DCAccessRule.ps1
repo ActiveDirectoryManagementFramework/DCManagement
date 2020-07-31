@@ -240,7 +240,14 @@
 				Write-PSFMessage -String 'Test-DCAccessRule.Processing.Path' -StringValues $domainController.Name, $path.Name -Target $domainController.Name
 				
 				$pathExists = Invoke-Command -Session $psSession -ScriptBlock { Test-Path -Path $using:path.Name }
-				if (-not $pathExists) { Stop-PSFFunction -String 'Test-DCAccessRule.Path.ExistsNot' -StringValues $domainController.Name, $path.Name -EnableException $EnableException -Cmdlet $PSCmdlet -Continue -Target $domainController.Name }
+				if (-not $pathExists)
+				{
+					foreach ($entry in $path.Group)
+					{
+						New-TestResult @results -Type NoPath -Configuration $entry -Identity $path.Name -Changed (New-Change -RuleObject $desiredRule.AccessRule)
+					}
+					Stop-PSFFunction -String 'Test-DCAccessRule.Path.ExistsNot' -StringValues $domainController.Name, $path.Name -EnableException $EnableException -Cmdlet $PSCmdlet -Continue -Target $domainController.Name
+				}
 				
 				$existingRules = Get-RemoteAccessRule -Session $psSession -Path $path.Name
 				
