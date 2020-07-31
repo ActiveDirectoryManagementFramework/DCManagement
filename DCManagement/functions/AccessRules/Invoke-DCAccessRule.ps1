@@ -128,6 +128,7 @@
 			)
 			
 			$result = Invoke-Command -Session $Session -ScriptBlock {
+				function Convert-UintToInt([uint32]$Number) { [System.BitConverter]::ToInt32(([System.BitConverter]::GetBytes($Number)), 0) }
 				try
 				{
 					$referenceRule = $using:AccessRule
@@ -136,7 +137,7 @@
 					{
 						if ($rule.IsInherited) { continue }
 						if ($rule.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]).ToString() -ne $referenceRule.IdentityReference.ToString()) { continue }
-						if ($rule.FileSystemRights -ne $referenceRule.FileSystemRights) { continue }
+						if ([int]$rule.FileSystemRights -ne (Convert-UintToInt -Number $referenceRule.FileSystemRightsNumeric)) { continue }
 						if ($rule.InheritanceFlags -ne $referenceRule.InheritanceFlags) { continue }
 						if ($rule.PropagationFlags -ne $referenceRule.PropagationFlags) { continue }
 						if ($rule.AccessControlType -ne $referenceRule.AccessControlType) { continue }

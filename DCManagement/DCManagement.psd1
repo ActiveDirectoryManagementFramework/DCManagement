@@ -32,7 +32,7 @@
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
-	# RequiredAssemblies = @('bin\DCManagement.dll')
+	RequiredAssemblies = @('bin\DCManagement.dll')
 	
 	# Type files (.ps1xml) to be loaded when importing this module
 	# TypesToProcess = @('xml\DCManagement.Types.ps1xml')
@@ -60,19 +60,19 @@
 	)
 	
 	# Cmdlets to export from this module
-	CmdletsToExport = ''
+	# CmdletsToExport = ''
 	
 	# Variables to export from this module
-	VariablesToExport = ''
+	# VariablesToExport = ''
 	
 	# Aliases to export from this module
-	AliasesToExport = ''
+	# AliasesToExport = ''
 	
 	# List of all modules packaged with this module
-	ModuleList = @()
+	# ModuleList = @()
 	
 	# List of all files packaged with this module
-	FileList = @()
+	# FileList = @()
 	
 	# Private data to pass to the module specified in ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 	PrivateData = @{

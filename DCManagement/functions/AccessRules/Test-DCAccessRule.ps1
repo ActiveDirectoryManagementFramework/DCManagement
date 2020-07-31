@@ -121,12 +121,25 @@
 				foreach ($rule in $acl.Access)
 				{
 					if ($rule.IsInherited) { continue }
-					$ruleObject = New-Object System.Security.AccessControl.FileSystemAccessRule($rule.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]), $rule.FileSystemRights, $rule.InheritanceFlags, $rule.PropagationFlags, $rule.AccessControlType)
-					$ruleObject | Add-Member -MemberType NoteProperty -Name DisplayName -Value $rule.IdentityReference.ToString() -PassThru
+					[PSCustomObject]@{
+						PSTypeName = 'Remote.FileSystemAccessRule'
+						DisplayName = $rule.IdentityReference.ToString()
+						FileSystemRights = $rule.FileSystemRights
+						FileSystemRightsNumeric = [int]$rule.FileSystemRights
+						AccessControlType = $rule.AccessControlType
+						IdentityReference = $rule.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier])
+						InheritanceFlags = $rule.InheritanceFlags
+						PropagationFlags = $rule.PropagationFlags
+						OriginalRights = $rule.FileSystemRights
+					}
 				}
 			}
 			# The default object had display issues when displayed in the "Change" property
-			$rules | Select-PSFObject DisplayName, FileSystemRights, AccessControlType, IdentityReference, InheritanceFlags, PropagationFlags -TypeName 'Remote.FileSystemAccessRule'
+			foreach ($rule in $rules)
+			{
+				$rule.FileSystemRights = Convert-AccessRight -Right $rule.FileSystemRightsNumeric
+				$rule
+			}
 		}
 		
 		function New-Change
@@ -163,6 +176,43 @@
 				return $true
 			}
 			return $false
+		}
+		
+		function Convert-AccessRight
+		{
+			[CmdletBinding()]
+			param (
+				[int]
+				$Right
+			)
+			$bytes = [System.BitConverter]::GetBytes($Right)
+			$uint = [System.BitConverter]::ToUInt32($bytes, 0)
+			
+			$definitiveRight = [DCManagement.FileSystemPermission]$uint
+			
+			# https://docs.microsoft.com/en-us/windows/win32/fileio/file-security-and-access-rights
+			# https://docs.microsoft.com/en-us/windows/win32/secauthz/standard-access-rights
+			$genericRightsMap = @{
+				All = [DCManagement.FileSystemPermission]::FullControl
+				Execute = ([DCManagement.FileSystemPermission]'ExecuteFile, ReadAttributes, ReadPermissions, Synchronize')
+				Read = ([DCManagement.FileSystemPermission]'ReadAttributes, ReadData, ReadExtendedAttributes, ReadPermissions, Synchronize')
+				Write = ([DCManagement.FileSystemPermission]'AppendData, WriteAttributes, WriteData, WriteExtendedAttributes, ReadPermissions, Synchronize')
+			}
+			
+			if ($definitiveRight -band [DCManagement.FileSystemPermission]::GenericAll) { return [DCManagement.FileSystemPermission]::FullControl }
+			if ($definitiveRight -band [DCManagement.FileSystemPermission]::GenericExecute)
+			{
+				$definitiveRight = $definitiveRight -bxor [DCManagement.FileSystemPermission]::GenericExecute -bor $genericRightsMap.Execute
+			}
+			if ($definitiveRight -band [DCManagement.FileSystemPermission]::GenericRead)
+			{
+				$definitiveRight = $definitiveRight -bxor [DCManagement.FileSystemPermission]::GenericRead -bor $genericRightsMap.Read
+			}
+			if ($definitiveRight -band [DCManagement.FileSystemPermission]::GenericWrite)
+			{
+				$definitiveRight = $definitiveRight -bxor [DCManagement.FileSystemPermission]::GenericWrite -bor $genericRightsMap.Write
+			}
+			[System.Security.AccessControl.FileSystemRights]$definitiveRight.Value__
 		}
 		#endregion Utility Functions
 	}
