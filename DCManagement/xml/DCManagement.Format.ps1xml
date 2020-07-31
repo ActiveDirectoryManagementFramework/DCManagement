@@ -4,6 +4,7 @@
         <SelectionSet>
             <Name>DCManagement.TestResults</Name>
             <Types>
+				<TypeName>DCManagement.FSAccessRule.TestResult</TypeName>
                 <TypeName>DCManagement.Share.TestResult</TypeName>
             </Types>
         </SelectionSet>

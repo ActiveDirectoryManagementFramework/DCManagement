@@ -34,7 +34,7 @@
 	.PARAMETER LogPath
 		The path where the DC will store the logs.
 	
-	.PARAMETER Sysvolpath
+	.PARAMETER SysvolPath
 		The path where the DC will store sysvol.
 	
 	.PARAMETER DatabasePath
@@ -83,19 +83,19 @@
 		$SafeModeAdministratorPassword = (New-Password -Length 32 -AsSecureString),
 
 		[switch]
-		$NoDNS = (Get-PSFConfigValue -FullName 'DCManagement.Defaults.NoDNS'),
+		$NoDNS,
 
 		[switch]
-		$NoReboot = (Get-PSFConfigValue -FullName 'DCManagement.Defaults.NoReboot'),
+		$NoReboot,
 
 		[string]
-		$LogPath = (Get-PSFConfigValue -FullName 'DCManagement.Defaults.LogPath'),
+		$LogPath,
 
 		[string]
-		$Sysvolpath = (Get-PSFConfigValue -FullName 'DCManagement.Defaults.SysvolPath'),
+		$SysvolPath,
 
 		[string]
-		$DatabasePath = (Get-PSFConfigValue -FullName 'DCManagement.Defaults.DatabasePath'),
+		$DatabasePath,
 
 		[switch]
 		$NoResultCache,
@@ -106,6 +106,17 @@
 	
 	begin
 	{
+		$parameters = @{ Server = $ComputerName; IsDCInstall = $true }
+		if ($Credential) { $parameters['Credential'] = $Credential}
+		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
+		
+		$NoDNS = Resolve-ParameterValue -FullName 'DCManagement.Defaults.NoDNS' -InputObject $NoDNS
+		$NoReboot = Resolve-ParameterValue -FullName 'DCManagement.Defaults.NoReboot' -InputObject $NoReboot
+		$LogPath = Resolve-ParameterValue -FullName 'DCManagement.Defaults.LogPath' -InputObject $LogPath
+		$SysvolPath = Resolve-ParameterValue -FullName 'DCManagement.Defaults.SysvolPath' -InputObject $SysvolPath
+		$DatabasePath = Resolve-ParameterValue -FullName 'DCManagement.Defaults.DatabasePath' -InputObject $DatabasePath
+		
+		
 		#region Main Scriptblock
 		$scriptBlock = {
 			param (
@@ -150,7 +161,7 @@
 				ForestMode = 'Win2012R2'
 				DatabasePath = $Configuration.DatabasePath
 				LogPath = $Configuration.LogPath
-				SysvolPath = $Configuration.Sysvol
+				SysvolPath = $Configuration.SysvolPath
 				InstallDNS = $Configuration.InstallDNS
 				SafeModeAdministratorPassword = $Configuration.SafeModeAdministratorPassword
 				NoRebootOnCompletion = $Configuration.NoRebootOnCompletion

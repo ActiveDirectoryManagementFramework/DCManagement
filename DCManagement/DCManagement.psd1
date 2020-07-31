@@ -3,7 +3,7 @@
 	RootModule = 'DCManagement.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.1.8'
+	ModuleVersion = '1.2.16'
 	
 	# ID used to uniquely identify this module
 	GUID = '998b2262-9b38-4b54-8ce6-493a00d70b03'
@@ -32,7 +32,7 @@
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
-	# RequiredAssemblies = @('bin\DCManagement.dll')
+	RequiredAssemblies = @('bin\DCManagement.dll')
 	
 	# Type files (.ps1xml) to be loaded when importing this module
 	# TypesToProcess = @('xml\DCManagement.Types.ps1xml')
@@ -43,31 +43,36 @@
 	# Functions to export from this module
 	FunctionsToExport = @(
 		'Clear-DCConfiguration'
+		'Get-DCAccessRule'
 		'Get-DCShare'
 		'Install-DCChildDomain'
 		'Install-DCDomainController'
 		'Install-DCRootDomain'
+		'Invoke-DCAccessRule'
 		'Invoke-DCShare'
+		'Register-DCAccessRule'
 		'Register-DCShare'
 		'Set-DCDomainContext'
+		'Test-DCAccessRule'
 		'Test-DCShare'
+		'Unregister-DCAccessRule'
 		'Unregister-DCShare'
 	)
 	
 	# Cmdlets to export from this module
-	CmdletsToExport = ''
+	# CmdletsToExport = ''
 	
 	# Variables to export from this module
-	VariablesToExport = ''
+	# VariablesToExport = ''
 	
 	# Aliases to export from this module
-	AliasesToExport = ''
+	# AliasesToExport = ''
 	
 	# List of all modules packaged with this module
-	ModuleList = @()
+	# ModuleList = @()
 	
 	# List of all files packaged with this module
-	FileList = @()
+	# FileList = @()
 	
 	# Private data to pass to the module specified in ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 	PrivateData = @{
