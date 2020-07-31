@@ -14,7 +14,11 @@
 		The name of the configuration.
 	
 	.EXAMPLE
-		PS C:\> Resolve-ParameterValue -InputObject $InputObject -FullName 'value2'
+		PS C:\> Resolve-ParameterValue -FullName 'DCManagement.Defaults.NoDNS' -InputObject $NoDNS
+		
+		Resolves the configuration for NoDNS:
+		- If it was specified by the user, use $NoDNS variable value
+		- If it was not, use the 'DCManagement.Defaults.NoDNS' configuration setting
 #>
 	[CmdletBinding()]
 	param (
@@ -30,10 +34,11 @@
 	
 	process
 	{
-		if ($null -ne $InputObject -and '' -ne $InputObject)
+		if ($null -ne $InputObject -and '' -ne $InputObject -and $InputObject -isnot [switch])
 		{
 			return $InputObject
 		}
+		if ($InputObject -is [switch] -and $InputObject.IsPresent) { return $InputObject }
 		Get-PSFConfigValue -FullName $FullName
 	}
 }
