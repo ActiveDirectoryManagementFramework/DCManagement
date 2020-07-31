@@ -24,6 +24,7 @@
 	
 		Tests, whether the filesystem Access Rules on all DCs of the corp.contoso.com domain are configured as designed.
 #>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseUsingScopeModifierInNewRunspaces", "")]
 	[CmdletBinding()]
 	param (
 		[PSFComputer]
