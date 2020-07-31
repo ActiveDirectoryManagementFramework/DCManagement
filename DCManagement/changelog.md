@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## ???
+## 1.2.16 (2020-07-31)
 
 - New: Component - File System Access Rules
 - Upd: Install-DCChildDomain - shows context prompt when no configuration loaded yet
