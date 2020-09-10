@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 1.2.17 (2020-09-11)
+
+- Upd: Internal name resoloution update & dependency update
+
 ## 1.2.16 (2020-07-31)
 
 - New: Component - File System Access Rules
