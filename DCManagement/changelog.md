@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: Removed most dependencies due to bug in PS5.1. Dependencies in ADMF itself are now expected to provide the necessary tools / modules.
+- Upd: Incremented PSFramework minimum version.
+
 ## 1.2.17 (2020-09-11)
 
 - Upd: Internal name resoloution update & dependency update
