@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: Shares - Added capability to specify which server to process through `-TargetServer` parameter.
+- Upd: AccessRules - Added capability to specify which server to process through `-TargetServer` parameter.
+
 ## 1.2.18 (2020-10-11)
 
 - Upd: Removed most dependencies due to bug in PS5.1. Dependencies in ADMF itself are now expected to provide the necessary tools / modules.

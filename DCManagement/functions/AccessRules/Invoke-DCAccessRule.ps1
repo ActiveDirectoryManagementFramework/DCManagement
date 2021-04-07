@@ -48,6 +48,9 @@
 		
 		[PSCredential]
 		$Credential,
+
+        [string[]]
+        $TargetServer,
 		
 		[switch]
 		$EnableException
@@ -56,6 +59,9 @@
 	begin
 	{
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
+        if (-not $Server -and $TargetServer) {
+            $parameters.Server = $TargetServer | Select-Object -First 1
+        }
 		$parameters['Debug'] = $false
 		Assert-ADConnection @parameters -Cmdlet $PSCmdlet
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
@@ -173,6 +179,7 @@
 	}
 	process
 	{
+		if ($TargetServer) { $parameters.TargetServer = $TargetServer }
 		if (-not $InputObject) { $InputObject = Test-DCAccessRule @parameters }
 		
 		foreach ($testItem in ($InputObject | Sort-Object Type -Descending)) # Delete before Add

@@ -30,6 +30,9 @@
 		
 		[PSCredential]
 		$Credential,
+
+        [string[]]
+        $TargetServer,
 		
 		[switch]
 		$EnableException
@@ -38,6 +41,9 @@
 	begin
 	{
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
+        if (-not $Server -and $TargetServer) {
+            $parameters.Server = $TargetServer | Select-Object -First 1
+        }
 		$parameters['Debug'] = $false
 		Assert-ADConnection @parameters -Cmdlet $PSCmdlet
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
@@ -219,6 +225,7 @@
 	{
 		foreach ($domainController in $domainControllers)
 		{
+            if ($TargetServer -and $domainController.Name -notin $TargetServer) { continue }
 			$results = @{
 				ObjectType = 'Share'
 				Server = $domainController.Name
