@@ -14,6 +14,11 @@
 	
 	.PARAMETER Credential
 		The credentials to use for this operation.
+
+    .PARAMETER TargetServer
+        The specific server(s) to process.
+        If specified, only listed domain controllers will be affected.
+        Specify the full FQDN of the server.
 	
 	.PARAMETER EnableException
 		This parameters disables user-friendly warnings and enables the throwing of exceptions.
@@ -32,6 +37,9 @@
 		
 		[PSCredential]
 		$Credential,
+
+        [string[]]
+        $TargetServer,
 		
 		[switch]
 		$EnableException
@@ -40,6 +48,9 @@
 	begin
 	{
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
+        if (-not $Server -and $TargetServer) {
+            $parameters.Server = $TargetServer | Select-Object -First 1
+        }
 		$parameters['Debug'] = $false
 		Assert-ADConnection @parameters -Cmdlet $PSCmdlet
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
@@ -225,6 +236,7 @@
 	{
 		foreach ($domainController in $domainControllers)
 		{
+            if ($TargetServer -and $domainController.Name -notin $TargetServer) { continue }
 			$results = @{
 				ObjectType = 'FSAccessRule'
 				Server	   = $domainController.Name
@@ -249,7 +261,7 @@
 				{
 					foreach ($entry in $path.Group)
 					{
-						New-TestResult @results -Type NoPath -Configuration $entry -Identity $path.Name -Changed (New-Change -RuleObject $desiredRule.AccessRule)
+						New-TestResult @results -Type NoPath -Configuration $entry -Identity $path.Name -Changed (New-Change -RuleObject $entry.AccessRule)
 					}
 					Stop-PSFFunction -String 'Test-DCAccessRule.Path.ExistsNot' -StringValues $domainController.Name, $path.Name -EnableException $EnableException -Cmdlet $PSCmdlet -Continue -Target $domainController.Name
 				}
