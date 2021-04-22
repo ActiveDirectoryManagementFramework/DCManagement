@@ -3,7 +3,7 @@
 	RootModule = 'DCManagement.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.2.18'
+	ModuleVersion = '1.2.21'
 	
 	# ID used to uniquely identify this module
 	GUID = '998b2262-9b38-4b54-8ce6-493a00d70b03'
@@ -26,7 +26,7 @@
 	# Modules that must be imported into the global environment prior to importing
 	# this module
 	RequiredModules = @(
-		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.4.150' }
+		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.6.198' }
 		
 		# Additional Dependencies, cannot declare due to bug in dependency handling in PS5.1
 		# @{ ModuleName = 'ResolveString'; ModuleVersion = '1.0.0' }
