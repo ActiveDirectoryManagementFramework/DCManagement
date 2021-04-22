@@ -13,6 +13,11 @@
 	
 	.PARAMETER Credential
 		The credentials to use for this operation.
+
+    .PARAMETER TargetServer
+        The specific server(s) to process.
+        If specified, only listed domain controllers will be affected.
+        Specify the full FQDN of the server.
 	
 	.PARAMETER EnableException
 		This parameters disables user-friendly warnings and enables the throwing of exceptions.
