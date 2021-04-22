@@ -256,7 +256,7 @@
 				{
 					foreach ($entry in $path.Group)
 					{
-						New-TestResult @results -Type NoPath -Configuration $entry -Identity $path.Name -Changed (New-Change -RuleObject $desiredRule.AccessRule)
+						New-TestResult @results -Type NoPath -Configuration $entry -Identity $path.Name -Changed (New-Change -RuleObject $entry.AccessRule)
 					}
 					Stop-PSFFunction -String 'Test-DCAccessRule.Path.ExistsNot' -StringValues $domainController.Name, $path.Name -EnableException $EnableException -Cmdlet $PSCmdlet -Continue -Target $domainController.Name
 				}

@@ -1,9 +1,10 @@
 ﻿# Changelog
 
-## ???
+## 1.2.21 (2021-04-23)
 
 - Upd: Shares - Added capability to specify which server to process through `-TargetServer` parameter.
 - Upd: AccessRules - Added capability to specify which server to process through `-TargetServer` parameter.
+- Fix: Test-DCAccessRule - errors when path not found: Cannot bind null to InputObject
 
 ## 1.2.18 (2020-10-11)
 
