@@ -1,5 +1,11 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: Test-DCShare - added message tag DCTarget to allow message level modifiers to raise per-server processing messages.
+- Upd: Test-DCAccessRule - added message tag DCTarget to allow message level modifiers to raise per-server processing messages.
+- Fix: Test-DCAccessRule - prompts for confirm on ToString when running in high confirm preference
+
 ## 1.2.21 (2021-04-23)
 
 - Upd: Shares - Added capability to specify which server to process through `-TargetServer` parameter.

@@ -242,7 +242,7 @@
 				Server	   = $domainController.Name
 			}
 			
-			Write-PSFMessage -String 'Test-DCAccessRule.Processing' -StringValues $domainController.Name -Target $domainController.Name
+			Write-PSFMessage -String 'Test-DCAccessRule.Processing' -StringValues $domainController.Name -Target $domainController.Name -Tag DCTarget
 			try { $psSession = New-PSSession -ComputerName $domainController.Name @psCred -ErrorAction Stop }
 			catch { Stop-PSFFunction -String 'Test-DCAccessRule.PSSession.Failed' -StringValues $domainController.Name -EnableException $EnableException -Cmdlet $PSCmdlet -Continue -Target $domainController.Name -ErrorRecord $_ }
 			$accessConfigurations = Get-DCAccessRule | Where-Object {
@@ -311,7 +311,7 @@
 				
 				foreach ($existingRule in $existingRules)
 				{
-					if ($effectiveMode -eq 'Defined' -and "$($existingRule.IdentityReference.ToString())" -notin ($effectiveDesiredState.AccessRule.IdentityReference | ForEach-Object ToString)) { continue }
+					if ($effectiveMode -eq 'Defined' -and "$($existingRule.IdentityReference.ToString())" -notin ($effectiveDesiredState.AccessRule.IdentityReference | ForEach-Object ToString -WhatIf:$false -Confirm:$false)) { continue }
 					if (Test-AccessRule -RuleObject $existingRule -Reference $effectiveDesiredState.AccessRule) { continue }
 					New-TestResult @results -Type Remove -Configuration $effectiveDesiredState -ADObject $existingRule -Identity $path.Name -Changed (New-Change -RuleObject $existingRule)
 				}
