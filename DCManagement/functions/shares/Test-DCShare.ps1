@@ -236,7 +236,7 @@
 				Server = $domainController.Name
 			}
 			
-			Write-PSFMessage -String 'Test-DCShare.Processing' -StringValues $domainController.Name
+			Write-PSFMessage -String 'Test-DCShare.Processing' -StringValues $domainController.Name -Tag DCTarget
 			try { $cimSession = New-CimSession -ComputerName $domainController.Name @cimCred -ErrorAction Stop }
 			catch { Stop-PSFFunction -String 'Test-DCShare.CimSession.Failed' -StringValues $domainController.Name -EnableException $EnableException -Cmdlet $PSCmdlet -Continue -Target $domainController.Name -ErrorRecord $_ }
 			$shareConfigurations = Get-DCShare | Where-Object {
