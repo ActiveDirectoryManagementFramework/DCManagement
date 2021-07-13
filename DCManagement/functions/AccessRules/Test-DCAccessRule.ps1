@@ -207,6 +207,7 @@
         }
 
         function Get-EffectiveFlags {
+            [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
             [CmdletBinding()]
             param (
                 $AccessRules
