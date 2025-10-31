@@ -197,7 +197,7 @@
 			
 			if (-not $psSessions[$testItem.Server])
 			{
-				try { $psSessions[$testItem.Server] = New-PSSession -ComputerName $testItem.Server @psCred -ErrorAction Stop }
+				try { $psSessions[$testItem.Server] = New-AdcPSSession -ComputerName $testItem.Server @psCred -ErrorAction Stop }
 				catch { Stop-PSFFunction -String 'Invoke-DCAccessRule.Access.Error' -StringValues $testItem.Server -Target $testItem -Continue -EnableException $EnableException -ErrorRecord $_ }
 			}
 			$psSession = $psSessions[$testItem.Server]
