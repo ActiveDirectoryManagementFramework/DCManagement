@@ -284,7 +284,7 @@
             }
 			
             Write-PSFMessage -String 'Test-DCAccessRule.Processing' -StringValues $domainController.Name -Target $domainController.Name -Tag DCTarget
-            try { $psSession = New-PSSession -ComputerName $domainController.Name @psCred -ErrorAction Stop }
+            try { $psSession = New-AdcPSSession -ComputerName $domainController.Name @psCred -ErrorAction Stop }
             catch { Stop-PSFFunction -String 'Test-DCAccessRule.PSSession.Failed' -StringValues $domainController.Name -EnableException $EnableException -Cmdlet $PSCmdlet -Continue -Target $domainController.Name -ErrorRecord $_ }
             $accessConfigurations = Get-DCAccessRule | Where-Object {
                 $_.ServerRole -eq 'ALL' -or
