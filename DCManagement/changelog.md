@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 1.2.26 (2025-10-31)
+
+- Upd: Access Rules - Use the shared managed remoting feature, allowing configuring session options.
+
 ## 1.2.25 (2021-07-13)
 
 - Upd: Test-DCShare - added message tag DCTarget to allow message level modifiers to raise per-server processing messages.
